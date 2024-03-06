@@ -1,0 +1,34 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.nav-link {
+  position: relative;
+  padding: 4px 15px;
+  color: white;
+  text-decoration: none;
+  font-family: Arial, sans-serif;
+  transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+  color: #ddd;
+}
+
+.nav-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 100%;
+  height: 2px;
+  background-color: transparent;
+  transition:
+    background-color 0.3s ease 0s,
+    bottom 0.3s ease 0s;
+}
+
+.nav-link:hover::after {
+  background-color: white;
+  bottom: 0;
+}
