@@ -109,11 +109,11 @@ const Beranda = () => {
   return (
     <div>
       <Header />
-      <div className="absolute w-full">
+      <div className="sticky top-0 z-10 w-full">
         <Navbar />
       </div>
       <div
-        className="flex flex-col items-center justify-center px-6 py-32 md:py-56"
+        className="flex flex-col items-center justify-center px-6 py-32 md:-mt-[60px] md:py-56"
         style={{
           backgroundImage: `url(${imgBeranda})`,
           backgroundSize: "cover",

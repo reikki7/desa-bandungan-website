@@ -37,7 +37,7 @@ const ExploreCard = ({ title, description, image, onClick }) => {
     };
 
     window.addEventListener('resize', handleResize);
-    handleResize(); // Call the function initially to set the font size based on the initial window size
+    handleResize();
 
     return () => {
       window.removeEventListener('resize', handleResize);

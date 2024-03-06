@@ -3,9 +3,11 @@ import Navbar from "../components/Navbar";
 
 const Dokumen = () => {
   return (
-    <div>
+    <div className="relative">
       <Header />
-      <Navbar />
+      <div className="sticky top-0 z-50 w-full bg-green-950">
+        <Navbar />
+      </div>
       Dokumen
     </div>
   );

@@ -6,7 +6,9 @@ const Apdes = () => {
     return (
         <div>
             <Header />
-            <Navbar />
+            <div className="sticky top-0 z-50 w-full bg-green-950">
+                <Navbar />
+            </div>
             APDES
         </div>
     )
