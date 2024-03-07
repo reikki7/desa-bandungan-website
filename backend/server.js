@@ -9,8 +9,8 @@ const db = mysql.createConnection({
   user: "root",
   host: "localhost",
   password: "",
-  port: 3307,
-  database: "database_desa_kenteng",
+  port: 3306,
+  database: "desa_kenteng_database",
 });
 
 app.get("/events", (req, res) => {
@@ -26,7 +26,7 @@ app.get("/events", (req, res) => {
 });
 
 app.get("/", (req, res) => {
-  return res.json("Hello World");
+  return res.json("Hello");
 });
 
 app.listen(8081, () => {
