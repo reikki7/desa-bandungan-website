@@ -109,7 +109,7 @@ const Beranda = () => {
   return (
     <div>
       <Header />
-      <div className="sticky top-0 z-10 w-full">
+      <div className="sticky top-0 z-50 w-full">
         <Navbar />
       </div>
       <div
@@ -138,7 +138,7 @@ const Beranda = () => {
             Bandungan.
           </p>
           <button
-            className="flex items-center py-4 font-semibold text-white transition duration-300 bg-[#004b23] shadow-md px-7 rounded-xl hover:bg-[#14671a]"
+            className="flex items-center py-3 font-semibold text-white transition duration-300 bg-[#004b23] shadow-md px-5 rounded-xl hover:bg-[#14671a]"
             onClick={() => {
               const exploreSection = document.getElementById("explore");
               if (exploreSection) {

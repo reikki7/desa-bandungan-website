@@ -3,8 +3,8 @@ import { AiFillMail, AiFillPhone } from "react-icons/ai";
 
 const Footer = () => {
   return (
-    <footer className="py-12 bg-[#051804]">
-      <div className="container grid grid-cols-1 gap-8 px-4 mx-auto md:grid-cols-3">
+    <footer className="py-12 px-12 bg-[#051804]">
+      <div className="container grid grid-cols-1 px-0 mx-auto md:px-10 gap-9 md:grid-cols-3">
         <div className="flex flex-col gap-4 mb-4 items-left">
           <img src={footerIcon} alt="Icon" className="w-56 h-auto mr-4" />
           <p className="text-white">

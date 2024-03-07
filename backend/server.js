@@ -9,12 +9,36 @@ const db = mysql.createConnection({
   user: "root",
   host: "localhost",
   password: "",
-  port: 3306,
+  port: 3307,
   database: "desa_kenteng_database",
 });
 
 app.get("/events", (req, res) => {
   const sql = "SELECT * FROM events";
+  db.query(sql, (err, data) => {
+    if (err) {
+      console.error("Error executing query:", err);
+      res.status(500).json({ error: "An error occurred while fetching data" });
+      return;
+    }
+    res.json(data);
+  });
+});
+
+app.get("/documents", (req, res) => {
+  const sql = "SELECT * FROM documents";
+  db.query(sql, (err, data) => {
+    if (err) {
+      console.error("Error executing query:", err);
+      res.status(500).json({ error: "An error occurred while fetching data" });
+      return;
+    }
+    res.json(data);
+  });
+});
+
+app.get("/umkms", (req, res) => {
+  const sql = "SELECT * FROM umkms";
   db.query(sql, (err, data) => {
     if (err) {
       console.error("Error executing query:", err);

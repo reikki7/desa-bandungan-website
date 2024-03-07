@@ -16,6 +16,8 @@ import exploreImage3 from "../../assets/explore preview/candi-gedong-songo.webp"
 import exploreImage4 from "../../assets/explore preview/gedong-pass.webp";
 import exploreImage5 from "../../assets/explore preview/sunrise-hill-gedong-songo.webp";
 
+import tape from "../../assets/tape.webp";
+
 const Explore = () => {
   const descriptions = [
     "Kawasan Wisata Umbul Sidomukti merupakan obyek wisata alam pegunungan yang terletak di Desa Sidomukti Jimbaran, Kecamatan Bandungan, Kabupaten Semarang, Jawa Tengah. Umbul Sidomukti berada di lereng Gunung Ungaran dengan ketinggian 1200 mdpl yang menjadikan hawa dingin dan udara sangat menyegarkan. Ikon wisata ini terletak pada kolam renang dari mata air alami yang airnya dingin dan segar. Aktivitas yang dapat dilakukan diantaranya seperti berenang, wahana pacu adrenaline, outbond sambil menikmati pemandangan alam. Selain itu kawasan wisata ini juga menyediakan penginapan, play ground, camping ground, dan fasilitas gathering di dalam areanya.",
@@ -27,9 +29,9 @@ const Explore = () => {
 
   const dataDesa = [
     {
-      title: "Desan Kenteng",
+      title: "Desa Kenteng",
       description:
-        "Desa Kenteng adalah desa yang terletak di Kecamatan Bandungan, Kabupaten Semarang, Jawa Tengah. Desa Kenteng memiliki keindahan alam yang sangat menakjubkan. Desa Kenteng memiliki keindahan alam yang sangat menakjubkan.Desa Kenteng memiliki keindahan alam yang sangat menakjubkan.Desa Kenteng memiliki keindahan alam yang sangat menakjubkan.",
+        "Desa Kenteng merupakan desa yang berada di daerah pegunungan Ungaran dan memiliki potensi yang terdiri dari pertanian, perkebunan, industri serta wilayahnya yang termasuk strategis di wilayah kecamatan Bandungan. Nama Desa Kenteng berawal dari cerita segerombolan perampok bernama Karangkobar yang kejam dan ditakuti oleh masyarakat di daerah Pegunungan Ungaran yang setiap aksinya tak segan melukai yang menjadi sasaran, sehingga setiap hari suasana menjadi sangat mencekam.",
       image: exploreImage0,
     },
   ];
@@ -125,21 +127,27 @@ const Explore = () => {
           ))}
         </div>
       </div>
-      <div className="my-10 flex flex-col items-center justify-center p-8 rounded-lg">
-        <img
-          className="my-10 max-w-4xl rounded-3xl shadow-md"
-          src={exploreImage}
-          alt="Explore Image"
-        />
-        <h2 className="text-4xl font-bold text-[#051804] mb-4">
-          {exploreTitle}
-        </h2>
-        <p className="max-w-md text-[#051804] text-center">
-          {exploreDescription}
-        </p>
-        {/* <button className="mt-6 bg-white text-green-700 px-6 py-2 rounded-full hover:bg-green-700 hover:text-white transition duration-300 ease-in-out">
-          Explore More
-        </button> */}
+      <div className="gap-8 flex flex-col items-center justify-center mx-auto max-w-[1400px] p-8 bg-white md:flex-row">
+        <div className="relative px-2 mb-6 md:w-1/2 md:mb-0">
+          <img src={tape} alt="tape" className="absolute z-10 flex top-[8%] -left-[6%] w-[20%] md:w-[20%]" style={{ transform: "rotate(-35deg)" }} />
+          <img src={tape} alt="tape" className="absolute z-10 flex bottom-[4%] -right-[6%] w-[20%] md:w-[17%]" style={{ transform: "rotate(-220deg)" }} />
+          <div className="relative w-full transform shadow-xl -rotate-3">
+            <div className="p-6 pb-[13.25%]">
+              <img
+                src={exploreImage}
+                alt="Random"
+                className="w-full h-auto"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div className="md:w-1/2 md:pl-8">
+          <h2 className="mb-4 text-2xl font-semibold">{exploreTitle}</h2>
+          <p className="mb-4 text-gray-700">
+            {exploreDescription}
+          </p>
+        </div>
       </div>
       <div className="bg-pb-2 mt-6 bg-[#004b23] py-6">
         <Maps location={selectedLocation} />
@@ -159,7 +167,7 @@ const Explore = () => {
           <AiFillHome size={25} />
         </button>
         <p
-          className="text-white font-bold text-lg"
+          className="text-lg font-bold text-white"
           style={{ textShadow: "2px 2px 4px rgba(0, 0, 0, 1)" }}
         >
           Kembali ke Desa

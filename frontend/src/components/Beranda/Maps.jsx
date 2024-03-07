@@ -15,7 +15,7 @@ const Maps = ({ location }) => {
           maxWidth: "1200px",
           paddingBottom: isMobile
             ? "calc(80% / (16 / 12))"
-            : "calc(80% / (20 / 8))",
+            : "calc(80% / (22 / 8))",
           position: "relative",
           borderRadius: "20px",
           overflow: "hidden",

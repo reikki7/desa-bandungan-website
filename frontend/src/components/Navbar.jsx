@@ -56,21 +56,21 @@ const Navbar = () => {
       </div>
 
       {/* Main Navbar (hidden on mobile) */}
-      <div className={`backdrop-blur-md duration-200 justify-center hidden gap-5 p-3 text-lg font-semibold text-white bg-[#004b23] md:flex ${isScrolled ? "bg-opacity-20" : "bg-opacity-50"}`}>
+      <div className={`z-40 backdrop-blur-md duration-200 justify-center hidden gap-5 p-3 text-lg font-semibold text-white bg-[#004b23] md:flex ${isScrolled ? "bg-opacity-20" : "bg-opacity-50"}`}>
         <Link to="/beranda" className="nav-link hover:text-gray-200">
           Beranda
         </Link>
         <Link to="/kegiatan" className="nav-link hover:text-gray-200">
           Kegiatan
         </Link>
-        <Link to="/dokumen" className="nav-link hover:text-gray-200">
-          Dokumen
-        </Link>
         <Link to="/umkm" className="nav-link hover:text-gray-200">
           UMKM
         </Link>
         <Link to="/apdes" className="nav-link hover:text-gray-200">
           APDES
+        </Link>
+        <Link to="/dokumen" className="nav-link hover:text-gray-200">
+          Dokumen
         </Link>
         <Link to="/tentang" className="nav-link hover:text-gray-200">
           Tentang
