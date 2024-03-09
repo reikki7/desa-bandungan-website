@@ -13,8 +13,37 @@ const db = mysql.createConnection({
   database: "desa_kenteng_database",
 });
 
-app.get("/events", (req, res) => {
-  const sql = "SELECT * FROM events";
+app.get("/kegiatan", (req, res) => {
+  const sql = "SELECT * FROM kegiatan";
+  db.query(sql, (err, data) => {
+    if (err) {
+      console.error("Error executing query:", err);
+      res.status(500).json({ error: "An error occurred while fetching data" });
+      return;
+    }
+    res.json(data);
+  });
+});
+
+app.get("/kegiatan/:id", (req, res) => {
+  const kegiatanId = req.params.id;
+  const sql = "SELECT * FROM kegiatan WHERE id = ?";
+  db.query(sql, [kegiatanId], (err, data) => {
+    if (err) {
+      console.error("Error executing query:", err);
+      res.status(500).json({ error: "An error occurred while fetching data" });
+      return;
+    }
+    if (data.length === 0) {
+      res.status(404).json({ error: "Kegiatan not found" });
+      return;
+    }
+    res.json(data[0]);
+  });
+});
+
+app.get("/kegiatan_images", (req, res) => {
+  const sql = "SELECT * FROM image_kegiatan";
   db.query(sql, (err, data) => {
     if (err) {
       console.error("Error executing query:", err);
@@ -37,7 +66,7 @@ app.get("/documents", (req, res) => {
   });
 });
 
-app.get("/umkms", (req, res) => {
+app.get("/umkm", (req, res) => {
   const sql = "SELECT * FROM umkms";
   db.query(sql, (err, data) => {
     if (err) {
@@ -46,6 +75,35 @@ app.get("/umkms", (req, res) => {
       return;
     }
     res.json(data);
+  });
+});
+
+app.get("/umkm_images", (req, res) => {
+  const sql = "SELECT * FROM umkm_images";
+  db.query(sql, (err, data) => {
+    if (err) {
+      console.error("Error executing query:", err);
+      res.status(500).json({ error: "An error occurred while fetching data" });
+      return;
+    }
+    res.json(data);
+  });
+});
+
+app.get("/umkm/:id", (req, res) => {
+  const umkmId = req.params.id;
+  const sql = "SELECT * FROM umkms WHERE id = ?";
+  db.query(sql, [umkmId], (err, data) => {
+    if (err) {
+      console.error("Error executing query:", err);
+      res.status(500).json({ error: "An error occurred while fetching data" });
+      return;
+    }
+    if (data.length === 0) {
+      res.status(404).json({ error: "UMKM not found" });
+      return;
+    }
+    res.json(data[0]);
   });
 });
 

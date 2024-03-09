@@ -1,45 +1,62 @@
 import React, { useState, useEffect } from 'react';
-import Header from '../components/Header';
-import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-import EventCard from '../components/InfoCard';
+import InfoCard from '../components/InfoCard';
+import { useSearchParams } from 'react-router-dom';
 
 const Kegiatan = () => {
-    const [events, setEvents] = useState([]);
+    const [kegiatan, setKegiatan] = useState([]);
     const [filter, setFilter] = useState('none');
     const [searchQuery, setSearchQuery] = useState('');
     const [searchResults, setSearchResults] = useState([]);
+    const [searchParams, setSearchParams] = useSearchParams({ search: '' })
     const [isMobile, setIsMobile] = useState(false);
+    const [imageLinks, setImageLinks] = useState([]);
+    const [filteredData, setFilteredData] = useState([]);
 
     const handleSearch = (event) => {
-        setSearchQuery(event.target.value);
+        const value = event.target.value;
+        setSearchQuery(value);
+        setSearchParams({ search: value });
     };
 
     useEffect(() => {
-        fetch('http://localhost:8081/events')
+        fetch('http://localhost:8081/kegiatan')
             .then(response => response.json())
             .then(data => {
-                let filteredData;
+                let filtered;
                 switch (filter) {
                     case 'Kegiatan Lalu':
-                        filteredData = data.filter(event => event.type_event === 'Kegiatan Lalu');
+                        filtered = data.filter(kegiatan => kegiatan.type_kegiatan === 'Kegiatan Lalu');
                         break;
                     case 'Kegiatan Mendatang':
-                        filteredData = data.filter(event => event.type_event === 'Kegiatan Mendatang');
+                        filtered = data.filter(kegiatan => kegiatan.type_kegiatan === 'Kegiatan Mendatang');
                         break;
                     default:
-                        filteredData = data;
+                        filtered = data;
                 }
-                setEvents(filteredData);
+                setFilteredData(filtered);
+                setKegiatan(filtered);
             });
     }, [filter]);
 
     useEffect(() => {
-        const results = events.filter(event =>
-            event.name_event.toLowerCase().includes(searchQuery.toLowerCase())
+        if (filteredData.length > 0) {
+            fetch(`http://localhost:8081/kegiatan_images`)
+                .then(response => response.json())
+                .then(images => {
+                    const filteredImages = images.filter(image => image?.event_id);
+                    setImageLinks(filteredImages);
+                    console.log(filteredImages);
+                })
+        }
+    }, [filteredData]);
+
+    useEffect(() => {
+        const results = kegiatan.filter(kegiatan =>
+            kegiatan.name_kegiatan.toLowerCase().includes(searchQuery.toLowerCase())
         );
         setSearchResults(results);
-    }, [searchQuery, events]);
+    }, [searchQuery, kegiatan]);
 
     useEffect(() => {
         const handleResize = () => {
@@ -52,13 +69,10 @@ const Kegiatan = () => {
         return () => window.removeEventListener('resize', handleResize);
     }, []);
 
+    console.log(imageLinks);
+
     return (
         <div>
-            <Header />
-            <div className="sticky top-0 z-50 w-full bg-green-950">
-                <Navbar />
-            </div>
-
             <div className="flex flex-col items-center justify-center mx-4 mt-5">
                 <input
                     type="text"
@@ -94,12 +108,12 @@ const Kegiatan = () => {
                     </div>
                     :
                     <div className="relative flex items-center justify-center mt-5 mr-4 space-x-4 content">
-                        <div className={`duration-[360ms] transition-all text-[#004b23] font-bold text-nowrap text-center absolute flex justify-center z-10 items-center text-sm bg-white h-12 rounded-full ${filter === 'none' ? 'w-20 mr-[305px]' : (filter === 'Kegiatan Lalu' ? 'w-32 mr-[80px]' : 'w-44 -mr-[238px]')}`}>
+                        <div className={`duration-[360ms] transition-all text-[#004b23] font-bold text-nowrap text-center absolute flex justify-center z-10 items-center text-sm bg-white h-12 rounded-full ${filter === 'none' ? 'w-20 mr-[317px]' : (filter === 'Kegiatan Lalu' ? 'w-32 mr-[100px]' : 'w-44 -mr-[254px]')}`}>
                             <div className={`absolute transition-opacity duration-300 ${filter !== 'none' ? 'opacity-0' : 'opacity-100'}`} style={{ height: '1.5rem', lineHeight: '1.5rem' }}>Semua</div>
                             <div className={`absolute transition-opacity duration-300 ${filter !== 'Kegiatan Lalu' ? 'opacity-0' : 'opacity-100'}`} style={{ height: '1.5rem', lineHeight: '1.5rem' }}>Kegiatan Lalu</div>
                             <div className={`absolute transition-opacity duration-300 ${filter !== 'Kegiatan Mendatang' ? 'opacity-0' : 'opacity-100'}`} style={{ height: '1.5rem', lineHeight: '1.5rem' }}>Kegiatan Mendatang</div>
                         </div>
-                        <div className='p-2 w-[409px] rounded-full bg-[#004b23] relative'>
+                        <div className='p-2 w-[422px] rounded-full bg-[#004b23] relative'>
                             <button onClick={() => setFilter('none')} className={`px-4 py-2 duration-300 font-bold rounded-full ${filter === 'none' ? 'opacity-0' : 'text-white'}`}>Semua</button>
                             <button onClick={() => setFilter('Kegiatan Lalu')} className={`px-4 py-2 duration-300 font-bold rounded-full ${filter === 'Kegiatan Lalu' ? 'opacity-0' : ' text-white'}`}>Kegiatan Lalu</button>
                             <button onClick={() => setFilter('Kegiatan Mendatang')} className={`px-4 duration-300 font-bold py-2 rounded-full ${filter === 'Kegiatan Mendatang' ? 'opacity-0' : 'text-white'}`}>Kegiatan Mendatang</button>
@@ -109,18 +123,24 @@ const Kegiatan = () => {
             </div>
 
             <div className='min-h-screen mx-8'>
-                {(searchQuery.length > 0 ? searchResults : events).map((event) => (
-                    <EventCard
-                        key={event.id}
-                        id={event.id}
-                        name={event.name_event}
-                        date={event.date_event}
-                        type={event.type_event}
-                        description={event.description_event}
-                        page="kegiatan" />
-                ))}
+                {(searchQuery.length > 0 ? searchResults : kegiatan).map((kegiatan) => {
+                    const filteredImages = imageLinks.filter(image => image.event_id === kegiatan.id);
+                    const imageUrl = filteredImages.length > 0 ? filteredImages[0].name : 'https://via.placeholder.com/320x220';
+                    return (
+                        <InfoCard
+                            key={kegiatan.id}
+                            id={kegiatan.id}
+                            name={kegiatan.name_kegiatan}
+                            date={kegiatan.date_kegiatan}
+                            type={kegiatan.type_kegiatan}
+                            description={kegiatan.description_kegiatan}
+                            image={imageUrl}
+                            link="event"
+                            page="kegiatan"
+                        />
+                    );
+                })}
             </div>
-            <Footer />
         </div >
     );
 };

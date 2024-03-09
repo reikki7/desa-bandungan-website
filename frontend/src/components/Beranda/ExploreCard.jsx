@@ -75,11 +75,10 @@ const ExploreCard = ({ title, description, image, onClick }) => {
           src={image}
         />
         <div
-          className={`absolute inset-0 ${
-            hovered
+          className={`absolute inset-0 ${hovered
               ? "bg-gradient-to-t from-black to-transparent"
               : "bg-gradient-to-t from-black to-transparent opacity-75"
-          } transition-opacity duration-300`}
+            } transition-opacity duration-300`}
         ></div>
       </div>
       <div

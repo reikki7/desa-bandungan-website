@@ -18,16 +18,16 @@ const Navbar = () => {
   useEffect(() => {
     const handleScroll = () => {
       const isTop = window.scrollY < 100;
-      if (isTop !== isScrolled) {
-        setIsScrolled(isTop);
-      }
+      setIsScrolled(!isTop);
     };
+
+    handleScroll();
 
     window.addEventListener("scroll", handleScroll);
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, [isScrolled]);
+  }, []);
 
   const toggleSidebarHandler = () => {
     setShowSidebar(!showSidebar);
@@ -56,7 +56,7 @@ const Navbar = () => {
       </div>
 
       {/* Main Navbar (hidden on mobile) */}
-      <div className={`z-40 backdrop-blur-md duration-200 justify-center hidden gap-5 p-3 text-lg font-semibold text-white bg-[#004b23] md:flex ${isScrolled ? "bg-opacity-20" : "bg-opacity-50"}`}>
+      <div className={`z-40 backdrop-blur-md duration-200 justify-center hidden gap-5 p-3 text-lg font-semibold text-white bg-[#004b23] md:flex ${isScrolled ? "bg-opacity-50" : "bg-opacity-75"}`}>
         <Link to="/beranda" className="nav-link hover:text-gray-200">
           Beranda
         </Link>

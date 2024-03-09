@@ -1,16 +1,9 @@
 import React from 'react';
-import Header from '../components/Header';
-import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-import NotFoundIllustration from '../assets/notfound_illustration.svg'; // Import your illustration or use an icon library
-
+import NotFoundIllustration from '../assets/notfound_illustration.svg';
 const NoPage = () => {
     return (
         <div>
-            <Header />
-            <div className="sticky top-0 z-10 w-full bg-green-950">
-                <Navbar />
-            </div>
             <div className="flex flex-col items-center justify-center min-h-screen mx-10 md:mx-0">
                 <img src={NotFoundIllustration} alt="404 Not Found" className="h-auto mb-8 w-80" />
                 <h1 className="mb-4 text-4xl font-bold text-center text-gray-800">Halaman Tidak Ditemukan</h1>

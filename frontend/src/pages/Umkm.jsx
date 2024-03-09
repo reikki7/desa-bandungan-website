@@ -1,22 +1,26 @@
 import React, { useState, useEffect } from 'react';
-import Header from '../components/Header';
-import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-import EventCard from '../components/InfoCard';
+import InfoCard from '../components/InfoCard';
+import { useSearchParams } from 'react-router-dom';
 
 const Umkm = () => {
     const [umkm, setUmkm] = useState([]);
     const [filter, setFilter] = useState('none');
     const [searchQuery, setSearchQuery] = useState('');
     const [searchResults, setSearchResults] = useState([]);
+    const [searchParams, setSearchParams] = useSearchParams({ search: '' })
     const [isMobile, setIsMobile] = useState(false);
+    const [imageLinks, setImageLinks] = useState([]);
+    const [filteredData, setFilteredData] = useState([]);
 
-    const handleSearch = (umkm) => {
-        setSearchQuery(umkm.target.value);
+    const handleSearch = (event) => {
+        const value = event.target.value;
+        setSearchQuery(value);
+        setSearchParams({ search: value });
     };
 
     useEffect(() => {
-        fetch('http://localhost:8081/umkms')
+        fetch('http://localhost:8081/umkm')
             .then(response => response.json())
             .then(data => {
                 let filteredData;
@@ -33,9 +37,24 @@ const Umkm = () => {
                     default:
                         filteredData = data;
                 }
+                setFilteredData(filteredData);
                 setUmkm(filteredData);
             });
     }, [filter]);
+
+    console.log(filteredData);
+
+    useEffect(() => {
+        if (filteredData.length > 0) {
+            fetch(`http://localhost:8081/umkm_images`)
+                .then(response => response.json())
+                .then(images => {
+                    const filteredImages = images.filter(image => image?.umkm_id);
+                    setImageLinks(filteredImages);
+                    console.log(filteredImages);
+                })
+        }
+    }, [filteredData]);
 
     useEffect(() => {
         const results = umkm.filter(umkm =>
@@ -57,15 +76,10 @@ const Umkm = () => {
 
     return (
         <div>
-            <Header />
-            <div className="sticky top-0 z-50 w-full bg-green-950">
-                <Navbar />
-            </div>
-
             <div className="flex flex-col items-center justify-center mx-4 mt-5">
                 <input
                     type="text"
-                    placeholder="Cari berdasarkan nama kegiatan..."
+                    placeholder="Cari berdasarkan nama UMKM..."
                     value={searchQuery}
                     onChange={handleSearch}
                     className="w-full max-w-5xl px-6 py-2 border border-gray-300 rounded-full text-xlg h-14 focus:outline-none"
@@ -119,20 +133,25 @@ const Umkm = () => {
                     </div>
                 }
             </div>
-
             <div className='min-h-screen mx-8'>
-                {(searchQuery.length > 0 ? searchResults : umkm).map((umkm) => (
-                    <EventCard
-                        key={umkm.id}
-                        id={umkm.id}
-                        name={umkm.name_umkm}
-                        date={umkm.date_created_umkm}
-                        type={umkm.category_umkm}
-                        description={umkm.description_umkm}
-                        page="umkm" />
-                ))}
+                {(searchQuery.length > 0 ? searchResults : umkm).map((umkm) => {
+                    const filteredImages = imageLinks.filter(image => image.umkm_id === umkm.id);
+                    const imageUrl = filteredImages.length > 0 ? filteredImages[0].name : 'https://via.placeholder.com/320x220';
+                    return (
+                        <InfoCard
+                            key={umkm.id}
+                            id={umkm.id}
+                            name={umkm.name_umkm}
+                            date={umkm.date_created_umkm}
+                            type={umkm.category_umkm}
+                            description={umkm.description_umkm}
+                            image={imageUrl}
+                            link="umkm"
+                            page="umkm"
+                        />
+                    );
+                })}
             </div>
-            <Footer />
         </div >
     );
 };

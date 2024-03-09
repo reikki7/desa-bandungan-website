@@ -105,12 +105,12 @@ const Explore = () => {
 
   return (
     <div className="">
-      <div className="bg-[#004b23] flex flex-col items-center px-6 pt-6 py-5">
+      <div className="bg-[#004b23] relative flex flex-col items-center px-6 pt-6 py-5" style={{ boxShadow: "0px 0px 25px #262626" }}>
         <h1 className="text-2xl font-bold text-white">Jelajahi Kenteng</h1>
         <div className="flex justify-center mt-3">
           {cardContent.map((card, index) => (
             <ExploreCard
-              key={index}
+              key={card.id}
               title={card.title}
               description={card.description}
               image={card.image}

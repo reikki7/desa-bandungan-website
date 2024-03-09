@@ -1,8 +1,9 @@
+import { Link } from 'react-router-dom';
 import { AiFillCalendar } from 'react-icons/ai';
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
-const EventCard = ({ id, name, date, type, description, page }) => {
+const InfoCard = ({ id, name, image, link, date, type, description, page }) => {
     const formattedDate = new Date(date).toLocaleDateString('en-GB');
 
     const [descriptionLength, setDescriptionLength] = useState(600);
@@ -19,7 +20,7 @@ const EventCard = ({ id, name, date, type, description, page }) => {
         return () => window.removeEventListener('resize', handleResize);
     }, []);
 
-    EventCard.propTypes = {
+    InfoCard.propTypes = {
         id: PropTypes.number.isRequired,
         name: PropTypes.string.isRequired,
         date: PropTypes.string.isRequired,
@@ -28,14 +29,12 @@ const EventCard = ({ id, name, date, type, description, page }) => {
         page: PropTypes.string.isRequired,
     };
 
-
-
     return (
         <div className="p-5 m-6 mx-auto overflow-hidden bg-white border-b-gray-300 border-b max-w-[1200px] hover:scale-[102%] duration-500">
-            <a href={`/${page}/${id}`}>
+            <Link to={{ pathname: `/${page}/${id}` }}>
                 <div className="flex flex-col items-center justify-center md:flex-row">
                     <div className="w-[320px] h-[220px] bg-gray-100 border-b border-gray-200">
-                        <img src="https://via.placeholder.com/300x300" alt="event" className="object-cover w-full h-full" />
+                        <img src={`https://visitdesakenteng.id/images/${link}IMG/${image.replace(/\s/g, "%20")}`} alt="event" className="object-cover w-full h-full" />
                     </div>
                     <div className="flex flex-col justify-between w-full px-1 py-4 sm:w-3/4 sm:px-6">
                         <div>
@@ -54,9 +53,9 @@ const EventCard = ({ id, name, date, type, description, page }) => {
                         </div>
                     </div>
                 </div>
-            </a>
+            </Link>
         </div>
     );
 }
 
-export default EventCard;
+export default InfoCard;

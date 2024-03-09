@@ -1,46 +1,44 @@
 import React, { useEffect, useState } from "react";
-import Header from "../components/Header";
-import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { FaFileDownload } from "react-icons/fa";
 import { FaFilePdf } from "react-icons/fa6";
+import { useSearchParams } from "react-router-dom";
 
 const Dokumen = () => {
   const [documents, setDocuments] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState([]);
+  const [searchParams, setSearchParams] = useSearchParams({ search: '' })
 
   useEffect(() => {
-    fetch('http://localhost:8081/documents')
-      .then(response => response.json())
-      .then(data => {
-        setDocuments(data);
-      });
-  }, []);
+    const fetchDocuments = async () => {
+      const response = await fetch('http://localhost:8081/documents');
+      const data = await response.json();
+      setDocuments(data);
+    };
+
+    fetchDocuments();
+
+    const results = documents.filter(document =>
+      document.name_document.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+    setSearchResults(results);
+  }, [searchQuery]);
 
   const handleDownload = (fileUrl) => {
     window.open(`https://visitdesakenteng.id/download/${fileUrl}`, '_blank');
   };
 
   const handleSearch = (event) => {
-    setSearchQuery(event.target.value);
+    const value = event.target.value;
+    setSearchQuery(value);
+    setSearchParams({ search: value });
   };
-
-  useEffect(() => {
-    const results = documents.filter(document =>
-      document.name_document.toLowerCase().includes(searchQuery.toLowerCase())
-    );
-    setSearchResults(results);
-  }, [searchQuery, documents]);
 
   console.log(documents);
 
   return (
     <div>
-      <Header />
-      <div className="sticky top-0 z-50 w-full bg-green-950">
-        <Navbar />
-      </div>
       <div className="min-h-screen bg-gray-100">
         <div className="flex justify-center p-5">
           <input
@@ -78,7 +76,6 @@ const Dokumen = () => {
           </div>
         </div>
       </div>
-      <Footer />
     </div>
   );
 };
