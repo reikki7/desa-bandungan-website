@@ -9,12 +9,12 @@ import cardImage3 from "../../assets/card-image-3.webp";
 import cardImage4 from "../../assets/card-image-4.webp";
 import cardImage5 from "../../assets/card-image-5.webp";
 
-import exploreImage0 from "../../assets/explore preview/desa-kenteng.webp";
-import exploreImage1 from "../../assets/explore preview/umbul-sidomukti.webp";
-import exploreImage2 from "../../assets/explore preview/taman-bunga-celosia.webp";
-import exploreImage3 from "../../assets/explore preview/candi-gedong-songo.webp";
-import exploreImage4 from "../../assets/explore preview/gedong-pass.webp";
-import exploreImage5 from "../../assets/explore preview/sunrise-hill-gedong-songo.webp";
+import exploreImage0 from "../../assets/explore-preview/desa-kenteng.webp";
+import exploreImage1 from "../../assets/explore-preview/umbul-sidomukti.webp";
+import exploreImage2 from "../../assets/explore-preview/taman-bunga-celosia.webp";
+import exploreImage3 from "../../assets/explore-preview/candi-gedong-songo.webp";
+import exploreImage4 from "../../assets/explore-preview/gedong-pass.webp";
+import exploreImage5 from "../../assets/explore-preview/sunrise-hill-gedong-songo.webp";
 
 import tape from "../../assets/tape.webp";
 

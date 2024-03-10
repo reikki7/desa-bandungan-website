@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Footer from '../components/Footer';
 import InfoCard from '../components/InfoCard';
 import { useSearchParams } from 'react-router-dom';
+import ClipLoader from "react-spinners/ClipLoader";
 
 const Umkm = () => {
     const [umkm, setUmkm] = useState([]);
@@ -12,6 +13,7 @@ const Umkm = () => {
     const [isMobile, setIsMobile] = useState(false);
     const [imageLinks, setImageLinks] = useState([]);
     const [filteredData, setFilteredData] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     const handleSearch = (event) => {
         const value = event.target.value;
@@ -20,6 +22,7 @@ const Umkm = () => {
     };
 
     useEffect(() => {
+        setLoading(true);
         fetch('http://localhost:8081/umkm')
             .then(response => response.json())
             .then(data => {
@@ -39,19 +42,19 @@ const Umkm = () => {
                 }
                 setFilteredData(filteredData);
                 setUmkm(filteredData);
+                setLoading(false);
             });
     }, [filter]);
 
-    console.log(filteredData);
-
     useEffect(() => {
+        setLoading(true);
         if (filteredData.length > 0) {
             fetch(`http://localhost:8081/umkm_images`)
                 .then(response => response.json())
                 .then(images => {
                     const filteredImages = images.filter(image => image?.umkm_id);
                     setImageLinks(filteredImages);
-                    console.log(filteredImages);
+                    setLoading(false);
                 })
         }
     }, [filteredData]);
@@ -133,24 +136,31 @@ const Umkm = () => {
                     </div>
                 }
             </div>
+
             <div className='min-h-screen mx-8'>
-                {(searchQuery.length > 0 ? searchResults : umkm).map((umkm) => {
-                    const filteredImages = imageLinks.filter(image => image.umkm_id === umkm.id);
-                    const imageUrl = filteredImages.length > 0 ? filteredImages[0].name : 'https://via.placeholder.com/320x220';
-                    return (
-                        <InfoCard
-                            key={umkm.id}
-                            id={umkm.id}
-                            name={umkm.name_umkm}
-                            date={umkm.date_created_umkm}
-                            type={umkm.category_umkm}
-                            description={umkm.description_umkm}
-                            image={imageUrl}
-                            link="umkm"
-                            page="umkm"
-                        />
-                    );
-                })}
+                {loading ? (
+                    <div className="flex justify-center mt-10">
+                        <ClipLoader color="#004b23" loading={loading} size={50} />
+                    </div>
+                ) : (
+                    (searchQuery.length > 0 ? searchResults : umkm).map((umkm) => {
+                        const filteredImages = imageLinks.filter(image => image.umkm_id === umkm.id);
+                        const imageUrl = filteredImages.length > 0 ? filteredImages[0].name : 'https://via.placeholder.com/320x220';
+                        return (
+                            <InfoCard
+                                key={umkm.id}
+                                id={umkm.id}
+                                name={umkm.name_umkm}
+                                date={umkm.date_created_umkm}
+                                type={umkm.category_umkm}
+                                description={umkm.description_umkm}
+                                image={imageUrl}
+                                link="umkm"
+                                page="umkm"
+                            />
+                        );
+                    }))
+                }
             </div>
         </div >
     );

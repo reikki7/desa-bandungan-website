@@ -1,0 +1,192 @@
+[
+  {
+    "position": "Kepala Desa",
+    "name": "Nurtiati S.Pd",
+    "NIP": "3322206301530002",
+    "birth_place": "Ambarawa",
+    "birth_date": "25 September 1953",
+    "education": "S1",
+    "end_date": "26 Desember 2025",
+    "image_path": "staff/kepaladesa.webp"
+  },
+  {
+    "position": "Sekretaris Desa",
+    "name": "Ana Ghosiyatul Umaroh",
+    "NIP": "3322206509890001",
+    "birth_place": "Kab. Semarang",
+    "birth_date": "25 September 1989",
+    "education": "S1",
+    "end_date": "8 Mei 2049",
+    "image_path": "staff/sekretaris.webp"
+  },
+  {
+    "position": "Kaur Umum dan Perencanaan",
+    "name": "Sukerti",
+    "NIP": "3322102007880001",
+    "birth_place": "Kab. Semarang",
+    "birth_date": "09 Maret 1972",
+    "education": "SLTA",
+    "end_date": "12 September 2032",
+    "image_path": "staff/kaurumum.webp"
+  },
+  {
+    "position": "Kaur Keuangan",
+    "name": "Triwati",
+    "NIP": "3322205802650001",
+    "birth_place": "Kab. Semarang",
+    "birth_date": "18 Februari 1965",
+    "education": "S1",
+    "end_date": "07 Januari 2025",
+    "image_path": "staff/kaurkeuangan.webp"
+  },
+  {
+    "position": "Kasi kesejahteraan",
+    "name": "Rukamdi",
+    "NIP": "3322205802650001",
+    "birth_place": "Kab. Semarang",
+    "birth_date": "11 Desember 1971",
+    "education": "D3",
+    "end_date": "28 Maret 2031",
+    "image_path": "staff/kasikesejahteraan.webp"
+  },
+  {
+    "position": "Kasi Pemerintahan",
+    "name": "Erika Ani W.",
+    "NIP": "3322205707770002",
+    "birth_place": "Salatiga",
+    "birth_date": "17 Januari 1977",
+    "education": "D3",
+    "end_date": "07 Januari 2037",
+    "image_path": "staff/kasipemerintahan.webp"
+  },
+  {
+    "position": "Kasi Pelayanan",
+    "name": "Fetty Indriasari",
+    "NIP": "3374116901870002",
+    "birth_place": "Kota Semarang",
+    "birth_date": "29 Januari 1987",
+    "education": "SLTA",
+    "end_date": "08 Mei 2047",
+    "image_path": "staff/kasipelayanan.webp"
+  },
+  {
+    "position": "Kadus Karanglo",
+    "name": "Mudriyanto",
+    "NIP": "3322102110660001",
+    "birth_place": "Kab. Semarang",
+    "birth_date": "21 Oktober 1966",
+    "education": "SLTA",
+    "end_date": "07 Januari 2026",
+    "image_path": "staff/kaduskaranglo.webp"
+  },
+  {
+    "position": "Kadus Jurang",
+    "name": "Pramono",
+    "NIP": "3322103004760001",
+    "birth_place": "Kab. Semarang",
+    "birth_date": "30 April 1976",
+    "education": "SLTA",
+    "end_date": "26 Desember 2025",
+    "image_path": "staff/kadusjurang.webp"
+  },
+  {
+    "position": "Kadus Kenteng",
+    "name": "Sugeng",
+    "NIP": "3322202711630001",
+    "birth_place": "Kab. Semarang",
+    "birth_date": "27 November 1963",
+    "education": "SLTP",
+    "end_date": "03 Agustus 2023",
+    "image_path": "staff/kaduskenteng.webp"
+  },
+  {
+    "position": "Kadus Gelaran",
+    "name": "Slamet Wahyudi",
+    "NIP": "3322206301530002",
+    "birth_place": "Kab. Semarang",
+    "birth_date": "01 Mei 1996",
+    "education": "SLTA",
+    "end_date": "20 September 2056",
+    "image_path": "staff/kadusgelaran.webp"
+  },
+  {
+    "position": "Kadus Clowok",
+    "name": "Bambang P",
+    "NIP": "3322100903740001",
+    "birth_place": "Kab. Semarang",
+    "birth_date": "09 Maret 1974",
+    "education": "SLTP",
+    "end_date": "07 Januari 2034",
+    "image_path": "staff/kadusclowok.webp"
+  },
+  {
+    "position": "Kadus Ampelgading",
+    "name": "Yulianto",
+    "NIP": "3322102007880001",
+    "birth_place": "Kab. Semarang",
+    "birth_date": "20 Juli 1988",
+    "education": "SLTA",
+    "end_date": "09 Agustus 2048",
+    "image_path": "staff/kadusampelgading.webp"
+  },
+  {
+    "position": "Kadus Golak",
+    "name": "Bagus Maulana",
+    "NIP": "3322102310010001",
+    "birth_place": "Kab. Semarang",
+    "birth_date": null,
+    "education": "SLTP",
+    "end_date": "09 Agustus 2048",
+    "image_path": "staff/kadusgolak.webp"
+  },
+  {
+    "position": "Teknis Keagamaan",
+    "name": "Wahyudi",
+    "NIP": "3322201611750001",
+    "birth_place": "Kab. Semarang",
+    "birth_date": null,
+    "education": "SD",
+    "end_date": null,
+    "image_path": "staff/tekniskeagamaan.webp"
+  },
+  {
+    "position": "Teknis Keagamaan",
+    "name": "Zaerodin",
+    "NIP": "3322101510720002",
+    "birth_place": "Kab. Semarang",
+    "birth_date": null,
+    "education": "SD",
+    "end_date": null,
+    "image_path": "staff/tekniskeagamaan2.webp"
+  },
+  {
+    "position": "Teknis Keagamaan",
+    "name": "Sumarno",
+    "NIP": "3322102602700001",
+    "birth_place": "Kab. Semarang",
+    "birth_date": null,
+    "education": "SD",
+    "end_date": null,
+    "image_path": "staff/tekniskeagamaan3.webp"
+  },
+  {
+    "position": "Teknis Keagamaan",
+    "name": "Istiyono",
+    "NIP": "3322101206670002",
+    "birth_place": "Kab. Semarang",
+    "birth_date": null,
+    "education": "SD",
+    "end_date": null,
+    "image_path": "staff/tekniskeagamaan4.webp"
+  },
+  {
+    "position": "Staf Teknis",
+    "name": "Safaati Nur Hidayah",
+    "NIP": "3322204611990001",
+    "birth_place": "Kab. Semarang",
+    "birth_date": null,
+    "education": "S1",
+    "end_date": null,
+    "image_path": "staff/stafteknis.webp"
+  }
+]

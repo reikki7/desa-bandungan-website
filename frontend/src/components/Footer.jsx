@@ -1,5 +1,6 @@
 import footerIcon from "../assets/footer-logo.webp";
 import { AiFillMail, AiFillPhone } from "react-icons/ai";
+import binusLogo from "../assets/binus-logo-white.webp";
 
 const Footer = () => {
   return (
@@ -68,11 +69,12 @@ const Footer = () => {
             />
             <button
               type="submit"
-              className="w-32 px-4 py-2 mt-1 text-black duration-200 bg-white rounded-lg hover:bg-green-100"
+              className="w-32 px-4 py-2 mt-1 text-black duration-200 bg-white rounded-lg hover:opacity-80"
             >
               Langganan
             </button>
           </form>
+          <img src={binusLogo} className="w-40 mt-6" />
         </div>
       </div>
     </footer>

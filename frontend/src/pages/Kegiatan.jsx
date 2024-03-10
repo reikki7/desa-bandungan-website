@@ -1,17 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import Footer from '../components/Footer';
 import InfoCard from '../components/InfoCard';
 import { useSearchParams } from 'react-router-dom';
+import ClipLoader from "react-spinners/ClipLoader";
 
 const Kegiatan = () => {
     const [kegiatan, setKegiatan] = useState([]);
     const [filter, setFilter] = useState('none');
     const [searchQuery, setSearchQuery] = useState('');
     const [searchResults, setSearchResults] = useState([]);
-    const [searchParams, setSearchParams] = useSearchParams({ search: '' })
+    const [searchParams, setSearchParams] = useSearchParams({ search: '' });
     const [isMobile, setIsMobile] = useState(false);
     const [imageLinks, setImageLinks] = useState([]);
     const [filteredData, setFilteredData] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     const handleSearch = (event) => {
         const value = event.target.value;
@@ -20,6 +21,7 @@ const Kegiatan = () => {
     };
 
     useEffect(() => {
+        setLoading(true);
         fetch('http://localhost:8081/kegiatan')
             .then(response => response.json())
             .then(data => {
@@ -36,17 +38,19 @@ const Kegiatan = () => {
                 }
                 setFilteredData(filtered);
                 setKegiatan(filtered);
+                setLoading(false);
             });
     }, [filter]);
 
     useEffect(() => {
+        setLoading(true);
         if (filteredData.length > 0) {
             fetch(`http://localhost:8081/kegiatan_images`)
                 .then(response => response.json())
                 .then(images => {
                     const filteredImages = images.filter(image => image?.event_id);
                     setImageLinks(filteredImages);
-                    console.log(filteredImages);
+                    setLoading(false);
                 })
         }
     }, [filteredData]);
@@ -68,8 +72,6 @@ const Kegiatan = () => {
 
         return () => window.removeEventListener('resize', handleResize);
     }, []);
-
-    console.log(imageLinks);
 
     return (
         <div>
@@ -123,23 +125,29 @@ const Kegiatan = () => {
             </div>
 
             <div className='min-h-screen mx-8'>
-                {(searchQuery.length > 0 ? searchResults : kegiatan).map((kegiatan) => {
-                    const filteredImages = imageLinks.filter(image => image.event_id === kegiatan.id);
-                    const imageUrl = filteredImages.length > 0 ? filteredImages[0].name : 'https://via.placeholder.com/320x220';
-                    return (
-                        <InfoCard
-                            key={kegiatan.id}
-                            id={kegiatan.id}
-                            name={kegiatan.name_kegiatan}
-                            date={kegiatan.date_kegiatan}
-                            type={kegiatan.type_kegiatan}
-                            description={kegiatan.description_kegiatan}
-                            image={imageUrl}
-                            link="event"
-                            page="kegiatan"
-                        />
-                    );
-                })}
+                {loading ? (
+                    <div className="flex items-center justify-center mt-8">
+                        <ClipLoader color="#004b23" loading={loading} size={50} />
+                    </div>
+                ) : (
+                    (searchQuery.length > 0 ? searchResults : kegiatan).map((kegiatan) => {
+                        const filteredImages = imageLinks.filter(image => image.event_id === kegiatan.id);
+                        const imageUrl = filteredImages.length > 0 ? filteredImages[0].name : null;
+                        return (
+                            <InfoCard
+                                key={kegiatan.id}
+                                id={kegiatan.id}
+                                name={kegiatan.name_kegiatan}
+                                date={kegiatan.date_kegiatan}
+                                type={kegiatan.type_kegiatan}
+                                description={kegiatan.description_kegiatan}
+                                image={imageUrl}
+                                link="event"
+                                page="kegiatan"
+                            />
+                        );
+                    }))
+                }
             </div>
         </div >
     );

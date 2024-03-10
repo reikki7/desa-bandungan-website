@@ -36,7 +36,7 @@ const Navbar = () => {
   return (
     <div>
       {/* Mobile menu button */}
-      <div className={`fixed top-0 duration-200 right-0 block p-2 mr-2 z-10 mt-8 md:hidden bg-[#004b23] rounded-full ${isScrolled ? "opacity-100" : "opacity-45"}`}>
+      <div className={`fixed top-0 duration-200 right-0 block p-2 mr-2 z-10 mt-8 md:hidden bg-[#004b23] rounded-full ${isScrolled ? "opacity-45" : "opacity-100"}`}>
         <button onClick={toggleSidebarHandler}>
           <svg
             className="w-6 h-4 text-white"
