@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import Footer from '../components/Footer';
 import InfoCard from '../components/InfoCard';
 import { useSearchParams } from 'react-router-dom';
 import ClipLoader from "react-spinners/ClipLoader";

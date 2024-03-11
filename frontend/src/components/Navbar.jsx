@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import {
   AiFillInfoCircle,
   AiFillHome,
@@ -57,24 +57,24 @@ const Navbar = () => {
 
       {/* Main Navbar (hidden on mobile) */}
       <div className={`z-40 backdrop-blur-md duration-200 justify-center hidden gap-5 p-3 text-lg font-semibold text-white bg-[#004b23] md:flex ${isScrolled ? "bg-opacity-50" : "bg-opacity-75"}`}>
-        <Link to="/beranda" className="nav-link hover:text-gray-200">
+        <NavLink to="/beranda" className="nav-link hover:text-gray-200" end>
           Beranda
-        </Link>
-        <Link to="/kegiatan" className="nav-link hover:text-gray-200">
+        </NavLink>
+        <NavLink to="/kegiatan" className="nav-link hover:text-gray-200" end>
           Kegiatan
-        </Link>
-        <Link to="/umkm" className="nav-link hover:text-gray-200">
+        </NavLink>
+        <NavLink to="/umkm" className="nav-link hover:text-gray-200" end>
           UMKM
-        </Link>
-        <Link to="/apdes" className="nav-link hover:text-gray-200">
+        </NavLink>
+        <NavLink to="/apdes" className="nav-link hover:text-gray-200" end>
           APDES
-        </Link>
-        <Link to="/dokumen" className="nav-link hover:text-gray-200">
+        </NavLink>
+        <NavLink to="/dokumen" className="nav-link hover:text-gray-200" end>
           Dokumen
-        </Link>
-        <Link to="/tentang" className="nav-link hover:text-gray-200">
+        </NavLink>
+        <NavLink to="/tentang" className="nav-link hover:text-gray-200" end>
           Tentang
-        </Link>
+        </NavLink>
       </div>
 
       {/* Sidebar */}

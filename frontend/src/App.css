@@ -32,3 +32,11 @@
   background-color: white;
   bottom: 0;
 }
+.nav-link.active {
+  color: #fff;
+}
+
+.nav-link.active::after {
+  background-color: white;
+  bottom: 0;
+}
