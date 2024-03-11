@@ -13,6 +13,10 @@ const Kegiatan = () => {
     const [imageLinks, setImageLinks] = useState([]);
     const [filteredData, setFilteredData] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [displayedData, setDisplayedData] = useState([]);
+
+    const itemsPerPage = 5;
 
     const handleSearch = (event) => {
         const value = event.target.value;
@@ -38,8 +42,15 @@ const Kegiatan = () => {
                 }
                 setFilteredData(filtered);
                 setKegiatan(filtered);
+                const startIndex = (currentPage - 1) * itemsPerPage;
+                const endIndex = startIndex + itemsPerPage;
+                setDisplayedData(filtered.slice(startIndex, endIndex));
                 setLoading(false);
             });
+    }, [filter, currentPage]);
+
+    useEffect(() => {
+        setCurrentPage(1);
     }, [filter]);
 
     useEffect(() => {
@@ -72,6 +83,15 @@ const Kegiatan = () => {
 
         return () => window.removeEventListener('resize', handleResize);
     }, []);
+
+    const handlePageChange = (pageNumber) => {
+        setCurrentPage(pageNumber);
+        const startIndex = (pageNumber - 1) * itemsPerPage;
+        const endIndex = startIndex + itemsPerPage;
+        setDisplayedData(filteredData.slice(startIndex, endIndex));
+    };
+
+    const totalPages = Math.ceil(filteredData.length / itemsPerPage);
 
     return (
         <div>
@@ -130,7 +150,7 @@ const Kegiatan = () => {
                         <ClipLoader color="#004b23" loading={loading} size={50} />
                     </div>
                 ) : (
-                    (searchQuery.length > 0 ? searchResults : kegiatan).map((kegiatan) => {
+                    (searchQuery.length > 0 ? searchResults : displayedData).map((kegiatan) => {
                         const filteredImages = imageLinks.filter(image => image.event_id === kegiatan.id);
                         const imageUrl = filteredImages.length > 0 ? filteredImages[0].name : null;
                         return (
@@ -149,7 +169,19 @@ const Kegiatan = () => {
                     }))
                 }
             </div>
-        </div >
+
+            <div className="flex justify-center mt-4 mb-6">
+                {Array.from({ length: totalPages }, (_, i) => i + 1).map(pageNumber => (
+                    <button
+                        key={pageNumber}
+                        className={`mx-1 px-3 py-1 rounded ${currentPage === pageNumber ? 'bg-[#004b23] text-white' : 'bg-gray-200'}`}
+                        onClick={() => handlePageChange(pageNumber)}
+                    >
+                        {pageNumber}
+                    </button>
+                ))}
+            </div>
+        </div>
     );
 };
 

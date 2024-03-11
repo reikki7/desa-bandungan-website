@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useParams } from 'react-router-dom';
-import { FaCalendarAlt, FaMapMarkerAlt, FaPhoneAlt, FaTimes } from 'react-icons/fa';
+import { FaCalendarAlt, FaMapMarkerAlt, FaPhoneAlt, FaTimes, FaTag } from 'react-icons/fa';
+import noImage from '../assets/no-image.webp';
 
 const UmkmDetails = () => {
     const [data, setData] = useState({});
@@ -10,6 +11,25 @@ const UmkmDetails = () => {
     const { id } = useParams();
     const idNumber = parseInt(id, 10);
     const modalRef = useRef(null);
+    const [otherData1, setOtherData1] = useState([]);
+    const [otherData2, setOtherData2] = useState([]);
+    const [otherImageLinks, setOtherImageLinks] = useState([]);
+
+    useEffect(() => {
+        fetch("http://localhost:8081/umkm/")
+            .then(response => response.json())
+            .then(data => {
+                const filteredUmkm = data.filter(item => item.id !== idNumber);
+                let randomIndex1 = Math.floor(Math.random() * filteredUmkm.length);
+                let randomIndex2 = Math.floor(Math.random() * filteredUmkm.length);
+                while (randomIndex2 === randomIndex1) {
+                    randomIndex2 = Math.floor(Math.random() * filteredUmkm.length);
+                }
+                setOtherData1(filteredUmkm[randomIndex1]);
+                setOtherData2(filteredUmkm[randomIndex2]);
+            })
+            .catch(error => console.error('Error fetching data:', error));
+    }, [id]);
 
     useEffect(() => {
         fetch(`http://localhost:8081/umkm/${id}`)
@@ -24,6 +44,7 @@ const UmkmDetails = () => {
         fetch(`http://localhost:8081/umkm_images`)
             .then(response => response.json())
             .then(images => {
+                setOtherImageLinks(images);
                 const filteredImages = images.filter(image => image.umkm_id === idNumber);
                 setImageLinks(filteredImages);
             })
@@ -97,9 +118,9 @@ const UmkmDetails = () => {
                                 <div className='flex justify-between gap-1'>
                                     <div className="flex items-center">
                                         <FaPhoneAlt className="mr-2 text-lg text-[#004b23]" />
-                                        <p className='font-bold'>No Telp:</p>
+                                        <p className='font-bold'>Hubungi:</p>
                                     </div>
-                                    <p>{data.contact_umkm}</p>
+                                    <p className=' text-end'>{data.contact_umkm}</p>
                                 </div>
                             </div>
                         </div>
@@ -115,13 +136,92 @@ const UmkmDetails = () => {
                                     key={image.id}
                                     src={`https://visitdesakenteng.id/images/umkmIMG/${image?.name.replace(/\s/g, "%20")}`}
                                     alt={data.name_umkm}
-                                    className="object-cover w-full h-48 rounded-lg shadow-md cursor-pointer"
+                                    className="object-cover w-full h-48 duration-300 rounded-lg shadow-md cursor-pointer hover:scale-105"
                                     onClick={() => openModal(index)}
                                 />
                             ))}
                         </div>
                     </div>
                 </div>
+
+                <div className="py-8 bg-gray-100 max-w-[600px]">
+                    <div className="container mx-auto">
+                        <h2 className="text-2xl font-bold mb-4 text-[#004b23]">Lainnya</h2>
+                        <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
+                            <div>
+                                {otherData1 && (
+                                    <div className="overflow-hidden bg-white rounded-lg shadow-md">
+                                        {otherImageLinks.length > 0 &&
+                                            otherImageLinks.find((image) => image.umkm_id === otherData1.id) ? (
+                                            <img
+                                                src={`https://visitdesakenteng.id/images/umkmIMG/${otherImageLinks
+                                                    .find((image) => image.umkm_id === otherData1.id)
+                                                    ?.name.replace(/\s/g, "%20")}`}
+                                                alt={otherData1.name_umkm}
+                                                className="object-cover w-full h-48"
+                                            />
+                                        ) : (
+                                            <img
+                                                src={noImage}
+                                                alt="No Image Available"
+                                                className="object-cover w-full h-48"
+                                            />
+                                        )}
+                                        <div className="p-4">
+                                            <h3 className="mb-2 text-xl font-bold">{otherData1.name_umkm}</h3>
+                                            <div className="flex items-center gap-2 mb-2 text-sm text-gray-700">
+                                                <FaTag />
+                                                <p>{otherData1.category_umkm}</p>
+                                            </div>
+                                            <a
+                                                href={`/umkm/${otherData1.id}`}
+                                                className="text-[#004b23] font-bold hover:underline"
+                                            >
+                                                Baca Selengkapnya
+                                            </a>
+                                        </div>
+                                    </div>
+                                )}
+                            </div>
+                            <div>
+                                {otherData2 && (
+                                    <div className="overflow-hidden bg-white rounded-lg shadow-md">
+                                        {otherImageLinks.length > 0 &&
+                                            otherImageLinks.find((image) => image.umkm_id === otherData2.id) ? (
+                                            <img
+                                                src={`https://visitdesakenteng.id/images/umkmIMG/${otherImageLinks
+                                                    .find((image) => image.umkm_id === otherData2.id)
+                                                    ?.name.replace(/\s/g, "%20")}`}
+                                                alt={otherData2.name_umkm}
+                                                className="object-cover w-full h-48"
+                                            />
+                                        ) : (
+                                            <img
+                                                src={noImage}
+                                                alt="No Image Available"
+                                                className="object-cover w-full h-48"
+                                            />
+                                        )}
+                                        <div className="p-4">
+                                            <h3 className="mb-2 text-xl font-bold">{otherData2.name_umkm}</h3>
+                                            <div className="flex items-center gap-2 mb-2 text-sm text-gray-700">
+                                                <FaTag />
+                                                <p>{otherData2.category_umkm}</p>
+                                            </div>
+                                            <a
+                                                href={`/umkm/${otherData2.id}`}
+                                                className="text-[#004b23] font-bold hover:underline"
+                                            >
+                                                Baca Selengkapnya
+                                            </a>
+                                        </div>
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
             {showModal && (
                 <>

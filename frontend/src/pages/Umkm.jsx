@@ -9,11 +9,15 @@ const Umkm = () => {
     const [filter, setFilter] = useState('none');
     const [searchQuery, setSearchQuery] = useState('');
     const [searchResults, setSearchResults] = useState([]);
-    const [searchParams, setSearchParams] = useSearchParams({ search: '' })
+    const [searchParams, setSearchParams] = useSearchParams({ search: '' });
     const [isMobile, setIsMobile] = useState(false);
     const [imageLinks, setImageLinks] = useState([]);
     const [filteredData, setFilteredData] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [displayedData, setDisplayedData] = useState([]);
+
+    const itemsPerPage = 5;
 
     const handleSearch = (event) => {
         const value = event.target.value;
@@ -42,8 +46,15 @@ const Umkm = () => {
                 }
                 setFilteredData(filteredData);
                 setUmkm(filteredData);
+                const startIndex = (currentPage - 1) * itemsPerPage;
+                const endIndex = startIndex + itemsPerPage;
+                setDisplayedData(filteredData.slice(startIndex, endIndex));
                 setLoading(false);
             });
+    }, [filter, currentPage]);
+
+    useEffect(() => {
+        setCurrentPage(1);
     }, [filter]);
 
     useEffect(() => {
@@ -76,6 +87,15 @@ const Umkm = () => {
 
         return () => window.removeEventListener('resize', handleResize);
     }, []);
+
+    const handlePageChange = (pageNumber) => {
+        setCurrentPage(pageNumber);
+        const startIndex = (pageNumber - 1) * itemsPerPage;
+        const endIndex = startIndex + itemsPerPage;
+        setDisplayedData(filteredData.slice(startIndex, endIndex));
+    };
+
+    const totalPages = Math.ceil(filteredData.length / itemsPerPage);
 
     return (
         <div>
@@ -143,7 +163,7 @@ const Umkm = () => {
                         <ClipLoader color="#004b23" loading={loading} size={50} />
                     </div>
                 ) : (
-                    (searchQuery.length > 0 ? searchResults : umkm).map((umkm) => {
+                    (searchQuery.length > 0 ? searchResults : displayedData).map((umkm) => {
                         const filteredImages = imageLinks.filter(image => image.umkm_id === umkm.id);
                         const imageUrl = filteredImages.length > 0 ? filteredImages[0].name : 'https://via.placeholder.com/320x220';
                         return (
@@ -162,7 +182,19 @@ const Umkm = () => {
                     }))
                 }
             </div>
-        </div >
+
+            <div className="flex justify-center mt-4 mb-6">
+                {Array.from({ length: totalPages }, (_, i) => i + 1).map(pageNumber => (
+                    <button
+                        key={pageNumber}
+                        className={`mx-1 px-3 py-1 rounded ${currentPage === pageNumber ? 'bg-[#004b23] text-white' : 'bg-gray-200'}`}
+                        onClick={() => handlePageChange(pageNumber)}
+                    >
+                        {pageNumber}
+                    </button>
+                ))}
+            </div>
+        </div>
     );
 };
 
