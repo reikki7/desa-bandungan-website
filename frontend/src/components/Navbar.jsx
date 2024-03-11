@@ -73,7 +73,7 @@ const Navbar = () => {
           Dokumen
         </NavLink>
         <NavLink to="/tentang" className="nav-link hover:text-gray-200" end>
-          Tentang
+          Tentang Kami
         </NavLink>
       </div>
 
@@ -104,7 +104,7 @@ const Navbar = () => {
             APDES
           </Link>
           <Link to="/tentang" className="flex items-center gap-3 text-xl">
-            <AiFillInfoCircle /> Tentang
+            <AiFillInfoCircle /> Tentang Kami
           </Link>
         </div>
       </div>
