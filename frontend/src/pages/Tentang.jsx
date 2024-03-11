@@ -85,7 +85,7 @@ const Tentang = () => {
                                         <HiMail />
                                         <span>Email:</span>
                                     </div>
-                                    <p className="text-sm text-gray-800">email@gmail.com</p>
+                                    <p className="text-sm text-gray-800">Kantordesakentengbandungan@gmail.com</p>
                                 </div>
                             </div>
                         </div>
