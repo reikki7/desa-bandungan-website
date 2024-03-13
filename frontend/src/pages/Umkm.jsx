@@ -28,7 +28,7 @@ const Umkm = () => {
 
     useEffect(() => {
         setLoading(true);
-        fetch('http://localhost:8081/umkm')
+        fetch('https://api.testing.visitdesakenteng.id/umkm')
             .then(response => response.json())
             .then(data => {
                 let filteredData;
@@ -67,7 +67,7 @@ const Umkm = () => {
     useEffect(() => {
         setLoading(true);
         if (filteredData.length > 0) {
-            fetch(`http://localhost:8081/umkm_images`)
+            fetch(`https://api.testing.visitdesakenteng.id/umkm_images`)
                 .then(response => response.json())
                 .then(images => {
                     const filteredImages = images.filter(image => image?.umkm_id);

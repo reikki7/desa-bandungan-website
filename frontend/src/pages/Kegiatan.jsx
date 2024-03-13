@@ -26,7 +26,7 @@ const Kegiatan = () => {
 
     useEffect(() => {
         setLoading(true);
-        fetch('http://localhost:8081/kegiatan')
+        fetch('https://api.testing.visitdesakenteng.id/kegiatan')
             .then(response => response.json())
             .then(data => {
                 let filtered;
@@ -56,7 +56,7 @@ const Kegiatan = () => {
     useEffect(() => {
         setLoading(true);
         if (filteredData.length > 0) {
-            fetch(`http://localhost:8081/kegiatan_images`)
+            fetch(`https://api.testing.visitdesakenteng.id/kegiatan_images`)
                 .then(response => response.json())
                 .then(images => {
                     const filteredImages = images.filter(image => image?.event_id);

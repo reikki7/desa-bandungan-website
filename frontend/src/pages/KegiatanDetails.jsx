@@ -17,7 +17,7 @@ const KegiatanDetails = () => {
     const [otherImageLinks, setOtherImageLinks] = useState([]);
 
     useEffect(() => {
-        fetch("http://localhost:8081/kegiatan/")
+        fetch("https://api.testing.visitdesakenteng.id/kegiatan/")
             .then(response => response.json())
             .then(data => {
                 const filteredKegiatan = data.filter(item => item.id !== idNumber);
@@ -33,7 +33,7 @@ const KegiatanDetails = () => {
     }, [id]);
 
     useEffect(() => {
-        fetch(`http://localhost:8081/kegiatan/${id}`)
+        fetch(`https://api.testing.visitdesakenteng.id/kegiatan/${id}`)
             .then(response => response.json())
             .then(data => {
                 setData(data);
@@ -42,7 +42,7 @@ const KegiatanDetails = () => {
     }, [id]);
 
     useEffect(() => {
-        fetch(`http://localhost:8081/kegiatan_images`)
+        fetch(`https://api.testing.visitdesakenteng.id/kegiatan_images`)
             .then(response => response.json())
             .then(images => {
                 setOtherImageLinks(images);

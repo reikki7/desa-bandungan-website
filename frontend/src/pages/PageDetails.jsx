@@ -23,7 +23,7 @@ const PageDetails = () => {
     }
 
     useEffect(() => {
-        fetch(`http://localhost:8081/${page}`)
+        fetch(`https://api.testing.visitdesakenteng.id/${page}`)
             .then(response => response.json())
             .then(data => {
                 console.log(data);

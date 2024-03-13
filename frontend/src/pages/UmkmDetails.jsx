@@ -16,7 +16,7 @@ const UmkmDetails = () => {
     const [otherImageLinks, setOtherImageLinks] = useState([]);
 
     useEffect(() => {
-        fetch("http://localhost:8081/umkm/")
+        fetch("https://api.testing.visitdesakenteng.id/umkm/")
             .then(response => response.json())
             .then(data => {
                 const filteredUmkm = data.filter(item => item.id !== idNumber);
@@ -32,7 +32,7 @@ const UmkmDetails = () => {
     }, [id]);
 
     useEffect(() => {
-        fetch(`http://localhost:8081/umkm/${id}`)
+        fetch(`https://api.testing.visitdesakenteng.id/umkm/${id}`)
             .then(response => response.json())
             .then(data => {
                 setData(data);
@@ -41,7 +41,7 @@ const UmkmDetails = () => {
     }, [id]);
 
     useEffect(() => {
-        fetch(`http://localhost:8081/umkm_images`)
+        fetch(`https://api.testing.visitdesakenteng.id/umkm_images`)
             .then(response => response.json())
             .then(images => {
                 setOtherImageLinks(images);
