@@ -1,7 +1,4 @@
 import React, { useState } from "react";
-import Header from "../components/Header";
-import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
 import { Tab, Tabs } from "../components/Beranda/Tabs";
 import PropTypes from "prop-types";
 import { AiFillCaretRight } from "react-icons/ai";
@@ -99,7 +96,6 @@ DemographicItem.propTypes = {
 };
 
 const Beranda = () => {
-
   const [activeTab, setActiveTab] = useState("Agama");
 
   const handleTabChange = (label) => {
@@ -148,9 +144,7 @@ const Beranda = () => {
         </div>
       </div>
 
-      <div
-        className="max-w-5xl px-4 py-16 mx-auto h-[600px] md:h-[400px]"
-      >
+      <div className="max-w-5xl px-4 py-16 mx-auto h-[600px] md:h-[400px]">
         <Tabs activeTab={activeTab} handleTabChange={handleTabChange}>
           <Tab label="Agama">
             <DemographicContent label="Agama" />

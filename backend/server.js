@@ -42,6 +42,20 @@ app.get("/kegiatan/:id", (req, res) => {
   });
 });
 
+// delete kegiatan
+app.delete("/kegiatan/:id", (req, res) => {
+  const kegiatanId = req.params.id;
+  const sql = "DELETE FROM kegiatan WHERE id = ?";
+  db.query(sql, [kegiatanId], (err, data) => {
+    if (err) {
+      console.error("Error executing query:", err);
+      res.status(500).json({ error: "An error occurred while deleting data" });
+      return;
+    }
+    res.json({ message: "Kegiatan deleted successfully" });
+  });
+});
+
 app.get("/kegiatan_images", (req, res) => {
   const sql = "SELECT * FROM image_kegiatan";
   db.query(sql, (err, data) => {
