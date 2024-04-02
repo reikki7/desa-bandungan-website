@@ -1,6 +1,7 @@
 import { AiOutlineEdit, AiOutlineDelete } from "react-icons/ai";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import ClipLoader from "react-spinners/ClipLoader";
 
 const AdminKegiatan = () => {
   const navigate = useNavigate();
@@ -8,6 +9,7 @@ const AdminKegiatan = () => {
   const [kegiatanData, setKegiatanData] = useState([]);
   const [filter, setFilter] = useState("Semua");
   const [searchQuery, setSearchQuery] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
 
   const formatDate = (dateString) => {
     const date = new Date(dateString);
@@ -19,6 +21,7 @@ const AdminKegiatan = () => {
   };
 
   useEffect(() => {
+    setIsLoading(true);
     fetch("https://api.testing.visitdesakenteng.id/kegiatan")
       .then((response) => response.json())
       .then((data) => {
@@ -36,29 +39,35 @@ const AdminKegiatan = () => {
           );
         }
         setKegiatanData(filtered);
+        setIsLoading(false);
       });
   }, [filter, searchQuery]);
 
   const handleAction = (id, action) => {
     if (action === "delete") {
-      fetch(`https://api.testing.visitdesakenteng.id/kegiatan/${id}`, {
-        method: "DELETE",
-      })
-        .then((response) => {
-          if (!response.ok) {
-            throw response;
-          }
-          return response.json();
+      const confirmDelete = window.confirm(
+        "Apakah Anda yakin ingin menghapus data ini?"
+      );
+      if (confirmDelete) {
+        fetch(`https://api.testing.visitdesakenteng.id/kegiatan/${id}`, {
+          method: "DELETE",
         })
-        .then((data) => {
-          console.log(data);
-          setKegiatanData(
-            kegiatanData.filter((kegiatan) => kegiatan.id !== id)
-          );
-        })
-        .catch((error) => {
-          console.error("Error:", error);
-        });
+          .then((response) => {
+            if (!response.ok) {
+              throw response;
+            }
+            return response.json();
+          })
+          .then((data) => {
+            console.log(data);
+            setKegiatanData(
+              kegiatanData.filter((kegiatan) => kegiatan.id !== id)
+            );
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+          });
+      }
     }
 
     if (action === "edit") {
@@ -67,9 +76,21 @@ const AdminKegiatan = () => {
     // Handle other actions here
   };
 
+  const handleTambahKegiatan = () => {
+    navigate("/admin/kegiatan/baru");
+  };
+
   return (
     <div className="admin-kegiatan">
-      <h2 className="mb-4 text-2xl font-bold">Kegiatan</h2>
+      <div className="flex justify-between p-2">
+        <h2 className="mb-4 text-2xl font-bold">Kegiatan</h2>
+        <button
+          className="px-4 py-2 ml-4 text-white bg-[#1d4a27] duration-300 rounded-lg hover:bg-[#091806] focus:outline-none"
+          onClick={handleTambahKegiatan}
+        >
+          Tambah Kegiatan
+        </button>
+      </div>
       <div className="p-6 bg-white shadow-lg rounded-xl">
         <div className="flex flex-col items-center justify-between mb-4 md:flex-row">
           {/* Search box */}
@@ -104,56 +125,63 @@ const AdminKegiatan = () => {
               <option value="Kegiatan Mendatang">Kegiatan Mendatang</option>
             </select>
           </div>
+          {/* Tambah Kegiatan button */}
         </div>
 
-        <div className="overflow-x-auto">
-          <table className="w-full">
-            <thead>
-              <tr>
-                <th className="px-4 py-2 text-left">ID</th>
-                <th className="px-4 py-2 text-left">Judul Kegiatan</th>
-                <th className="px-4 py-2 text-left">Tanggal Dibuat</th>
-                <th className="px-4 py-2 text-left">Kategori</th>
-                <th className="px-4 py-2 text-left">Tindakan</th>
-              </tr>
-            </thead>
-            <tbody>
-              {kegiatanData.map((kegiatan) => (
-                <tr
-                  key={kegiatan.id}
-                  className="transition-colors duration-200 border-b hover:bg-gray-100"
-                >
-                  <td className="px-4 py-2 text-left">{kegiatan.id}</td>
-                  <td className="px-4 py-2 text-left">
-                    {kegiatan.name_kegiatan}
-                  </td>
-                  <td className="px-4 py-2 text-left">
-                    {formatDate(kegiatan.date_kegiatan)}
-                  </td>
-                  <td className="px-4 py-2 text-left">
-                    {kegiatan.type_kegiatan}
-                  </td>
-                  <td className="px-4 py-2 text-left">
-                    <div className="flex items-center justify-center">
-                      <button
-                        className="mr-2 text-blue-500 transition-colors duration-200 hover:text-blue-700"
-                        onClick={() => handleAction(kegiatan.id, "edit")}
-                      >
-                        <AiOutlineEdit className="w-5 h-5" />
-                      </button>
-                      <button
-                        className="text-red-500 transition-colors duration-200 hover:text-red-700"
-                        onClick={() => handleAction(kegiatan.id, "delete")}
-                      >
-                        <AiOutlineDelete className="w-5 h-5" />
-                      </button>
-                    </div>
-                  </td>
+        {isLoading ? (
+          <div className="flex justify-center">
+            <ClipLoader color="#004b23" />
+          </div>
+        ) : (
+          <div className="overflow-x-auto">
+            <table className="w-full">
+              <thead>
+                <tr>
+                  <th className="px-4 py-2 text-left">ID</th>
+                  <th className="px-4 py-2 text-left">Judul Kegiatan</th>
+                  <th className="px-4 py-2 text-left">Tanggal Dibuat</th>
+                  <th className="px-4 py-2 text-left">Kategori</th>
+                  <th className="px-4 py-2 text-left">Tindakan</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+              </thead>
+              <tbody>
+                {kegiatanData.map((kegiatan) => (
+                  <tr
+                    key={kegiatan.id}
+                    className="transition-colors duration-200 border-b hover:bg-gray-100"
+                  >
+                    <td className="px-4 py-2 text-left">{kegiatan.id}</td>
+                    <td className="px-4 py-2 text-left">
+                      {kegiatan.name_kegiatan}
+                    </td>
+                    <td className="px-4 py-2 text-left">
+                      {formatDate(kegiatan.date_kegiatan)}
+                    </td>
+                    <td className="px-4 py-2 text-left">
+                      {kegiatan.type_kegiatan}
+                    </td>
+                    <td className="px-4 py-2 text-left">
+                      <div className="flex items-center justify-center">
+                        <button
+                          className="mr-2 text-blue-500 transition-colors duration-200 hover:text-blue-700"
+                          onClick={() => handleAction(kegiatan.id, "edit")}
+                        >
+                          <AiOutlineEdit className="w-5 h-5" />
+                        </button>
+                        <button
+                          className="text-red-500 transition-colors duration-200 hover:text-red-700"
+                          onClick={() => handleAction(kegiatan.id, "delete")}
+                        >
+                          <AiOutlineDelete className="w-5 h-5" />
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
       </div>
     </div>
   );

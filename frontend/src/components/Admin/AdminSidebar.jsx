@@ -6,8 +6,9 @@ import {
   RiCalendarEventLine,
   RiFileTextLine,
 } from "react-icons/ri";
-import { Link, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import headerLogo from "../../assets/header-logo.webp";
+import { useLocation } from "react-router-dom";
 
 const AdminSidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -21,6 +22,8 @@ const AdminSidebar = () => {
     // Perform logout logic here
     navigate("/admin/login");
   };
+
+  const location = useLocation();
 
   return (
     <div className="bg-[#051804] text-white flex h-screen">
@@ -45,40 +48,56 @@ const AdminSidebar = () => {
         <nav className="p-4">
           <ul className="space-y-4">
             <li>
-              <Link
+              <NavLink
                 to="/admin/kegiatan"
-                className="flex items-center px-4 py-2 rounded-md hover:bg-[#004b23] transition-colors duration-200"
-              >
-                <RiCalendarEventLine size={20} className="mr-2" />
-                Kegiatan
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/admin/umkm"
-                className="flex items-center px-4 py-2 rounded-md hover:bg-[#004b23] transition-colors duration-200"
-              >
-                <RiShoppingBagLine size={20} className="mr-2" />
-                UMKM
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/admin/apdes"
-                className="flex items-center px-4 py-2 rounded-md hover:bg-[#004b23] transition-colors duration-200"
-              >
-                <RiFileTextLine size={20} className="mr-2" />
-                APDES
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/admin/dokumen"
-                className="flex items-center px-4 py-2 rounded-md hover:bg-[#004b23] transition-colors duration-200"
+                className={
+                  location.pathname === "/admin/kegiatan"
+                    ? `flex items-center px-4 py-2 rounded-md bg-[#004b23] transition-colors duration-200`
+                    : "flex items-center px-4 py-2 rounded-md hover:bg-[#004b23] transition-colors duration-200"
+                }
               >
                 <RiFileList2Line size={20} className="mr-2" />
+                Kegiatan
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to="/admin/umkm"
+                className={
+                  location.pathname === "/admin/umkm"
+                    ? `flex items-center px-4 py-2 rounded-md bg-[#004b23] transition-colors duration-200`
+                    : "flex items-center px-4 py-2 rounded-md hover:bg-[#004b23] transition-colors duration-200"
+                }
+              >
+                <RiCalendarEventLine size={20} className="mr-2" />
+                UMKM
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to="/admin/apdes"
+                className={
+                  location.pathname === "/admin/apdes"
+                    ? `flex items-center px-4 py-2 rounded-md bg-[#004b23] transition-colors duration-200`
+                    : "flex items-center px-4 py-2 rounded-md hover:bg-[#004b23] transition-colors duration-200"
+                }
+              >
+                <RiShoppingBagLine size={20} className="mr-2" />
+                APDES
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to="/admin/dokumen"
+                className={
+                  location.pathname === "/admin/dokumen"
+                    ? `flex items-center px-4 py-2 rounded-md bg-[#004b23] transition-colors duration-200`
+                    : "flex items-center px-4 py-2 rounded-md hover:bg-[#004b23] transition-colors duration-200"
+                }
+              >
+                <RiFileTextLine size={20} className="mr-2" />
                 Dokumen
-              </Link>
+              </NavLink>
             </li>
           </ul>
         </nav>

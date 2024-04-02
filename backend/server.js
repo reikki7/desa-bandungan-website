@@ -42,6 +42,45 @@ app.get("/kegiatan/:id", (req, res) => {
   });
 });
 
+// POST request to add new kegiatan
+app.post("/kegiatan", (req, res) => {
+  const newKegiatan = req.body;
+  const sql = "INSERT INTO kegiatan SET ?";
+  db.query(sql, newKegiatan, (err, result) => {
+    if (err) {
+      console.error("Error executing query:", err);
+      res
+        .status(500)
+        .json({ error: "An error occurred while adding kegiatan" });
+      return;
+    }
+    res
+      .status(201)
+      .json({ message: "Kegiatan added successfully", id: result.insertId });
+  });
+});
+
+// PATCH request to update existing kegiatan
+app.patch("/kegiatan/:id", (req, res) => {
+  const kegiatanId = req.params.id;
+  const updatedKegiatan = req.body;
+  const sql = "UPDATE kegiatan SET ? WHERE id = ?";
+  db.query(sql, [updatedKegiatan, kegiatanId], (err, result) => {
+    if (err) {
+      console.error("Error executing query:", err);
+      res
+        .status(500)
+        .json({ error: "An error occurred while updating kegiatan" });
+      return;
+    }
+    if (result.affectedRows === 0) {
+      res.status(404).json({ error: "Kegiatan not found" });
+      return;
+    }
+    res.json({ message: "Kegiatan updated successfully" });
+  });
+});
+
 // delete kegiatan
 app.delete("/kegiatan/:id", (req, res) => {
   const kegiatanId = req.params.id;

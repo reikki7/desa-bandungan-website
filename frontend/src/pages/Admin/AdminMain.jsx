@@ -1,4 +1,3 @@
-// AdminDashboard.jsx
 import { Routes, Route } from "react-router-dom";
 import AdminSidebar from "../../components/Admin/AdminSidebar";
 import AdminKegiatan from "./AdminKegiatan";
@@ -16,7 +15,7 @@ const AdminMain = () => {
       {" "}
       {/* Center horizontally */}
       <AdminSidebar />
-      <div className="p-10 w-full mx-24">
+      <div className="md:p-10 p-0 mx-0 w-full md:mx-24 overflow-auto">
         <Routes>
           <Route path="/" element={<AdminKegiatan />} />
           <Route path="/kegiatan" element={<AdminKegiatan />} />
@@ -27,6 +26,10 @@ const AdminMain = () => {
           <Route path="/umkm/:id" element={<AdminUmkmEdit />} />
           <Route path="/dokumen/:id" element={<AdminDokumenEdit />} />
           <Route path="/apdes/:id" element={<AdminApdesEdit />} />
+          <Route path="/kegiatan/baru" element={<AdminKegiatanEdit />} />
+          <Route path="/umkm/baru" element={<AdminUmkmEdit />} />
+          <Route path="/dokumen/baru" element={<AdminDokumenEdit />} />
+          <Route path="/apdes/baru" element={<AdminApdesEdit />} />
         </Routes>
       </div>
     </div>
