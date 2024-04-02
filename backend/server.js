@@ -45,6 +45,10 @@ app.get("/kegiatan/:id", (req, res) => {
 // POST request to add new kegiatan
 app.post("/kegiatan", (req, res) => {
   const newKegiatan = req.body;
+  newKegiatan.created_at = newKegiatan.updated_at = new Date()
+    .toISOString()
+    .slice(0, 19)
+    .replace("T", " ");
   const sql = "INSERT INTO kegiatan SET ?";
   db.query(sql, newKegiatan, (err, result) => {
     if (err) {
@@ -64,6 +68,10 @@ app.post("/kegiatan", (req, res) => {
 app.patch("/kegiatan/:id", (req, res) => {
   const kegiatanId = req.params.id;
   const updatedKegiatan = req.body;
+  updatedKegiatan.updated_at = new Date()
+    .toISOString()
+    .slice(0, 19)
+    .replace("T", " ");
   const sql = "UPDATE kegiatan SET ? WHERE id = ?";
   db.query(sql, [updatedKegiatan, kegiatanId], (err, result) => {
     if (err) {
@@ -128,6 +136,49 @@ app.get("/umkm", (req, res) => {
       return;
     }
     res.json(data);
+  });
+});
+
+// POST request to add new UMKM
+app.post("/umkm", (req, res) => {
+  const newData = req.body;
+  newData.date_created_umkm = newData.date_updated_umkm = new Date()
+    .toISOString()
+    .slice(0, 19)
+    .replace("T", " ");
+  const sql = "INSERT INTO umkms SET ?";
+  db.query(sql, newData, (err, result) => {
+    if (err) {
+      console.error("Error executing query:", err);
+      res.status(500).json({ error: "An error occurred while adding UMKM" });
+      return;
+    }
+    res
+      .status(201)
+      .json({ message: "UMKM added successfully", id: result.insertId });
+  });
+});
+
+// PATCH request to update existing UMKM
+app.patch("/umkm/:id", (req, res) => {
+  const umkmId = req.params.id;
+  const updatedData = req.body;
+  updatedData.date_updated_umkm = new Date()
+    .toISOString()
+    .slice(0, 19)
+    .replace("T", " ");
+  const sql = "UPDATE umkms SET ? WHERE id = ?";
+  db.query(sql, [updatedData, umkmId], (err, result) => {
+    if (err) {
+      console.error("Error executing query:", err);
+      res.status(500).json({ error: "An error occurred while updating UMKM" });
+      return;
+    }
+    if (result.affectedRows === 0) {
+      res.status(404).json({ error: "UMKM not found" });
+      return;
+    }
+    res.json({ message: "UMKM updated successfully" });
   });
 });
 

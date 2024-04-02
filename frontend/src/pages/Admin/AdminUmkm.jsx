@@ -76,7 +76,7 @@ const AdminUmkm = () => {
 
   return (
     <div className="admin-umkm">
-      <div className="flex justify-between mb-4">
+      <div className="flex justify-between p-2">
         <h2 className="mb-4 text-2xl font-bold">UMKM</h2>
         <button
           className="px-4 py-2 ml-4 text-white bg-[#1d4a27] duration-300 rounded-lg hover:bg-[#091806] focus:outline-none"

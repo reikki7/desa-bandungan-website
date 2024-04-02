@@ -71,24 +71,24 @@ const AdminKegiatanEdit = () => {
 
   let date_kegiatan = new Date(formData.date_kegiatan);
   let year = date_kegiatan.getFullYear();
-  let month = ("0" + (date_kegiatan.getMonth() + 1)).slice(-2); // Months are 0 based index
+  let month = ("0" + (date_kegiatan.getMonth() + 1)).slice(-2);
   let day = ("0" + date_kegiatan.getDate()).slice(-2);
 
   let formattedDate = `${year}-${month}-${day}`;
 
   return (
-    <div className="max-w-md mx-auto">
-      <h2 className="mb-4 text-2xl font-bold">
+    <div className="mx-auto max-w-7xl">
+      <h2 className="p-2 text-2xl font-bold">
         {id ? "Edit Kegiatan" : "Tambah Kegiatan"}
       </h2>
       <form
         onSubmit={handleSubmit}
-        className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
+        className="px-8 pt-6 pb-8 mb-4 bg-white rounded shadow-md"
       >
         <div className="mb-4">
           <label
             htmlFor="name_kegiatan"
-            className="block text-gray-700 font-bold mb-2"
+            className="block mb-2 font-bold text-gray-700"
           >
             Nama Kegiatan
           </label>
@@ -98,14 +98,14 @@ const AdminKegiatanEdit = () => {
             name="name_kegiatan"
             value={formData.name_kegiatan}
             onChange={handleChange}
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            className="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
             required
           />
         </div>
         <div className="mb-4">
           <label
             htmlFor="detail_kegiatan"
-            className="block text-gray-700 font-bold mb-2"
+            className="block mb-2 font-bold text-gray-700"
           >
             Detail Kegiatan
           </label>
@@ -114,14 +114,14 @@ const AdminKegiatanEdit = () => {
             name="detail_kegiatan"
             value={formData.detail_kegiatan}
             onChange={handleChange}
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            className="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
             required
           />
         </div>
         <div className="mb-4">
           <label
             htmlFor="description_kegiatan"
-            className="block text-gray-700 font-bold mb-2"
+            className="block mb-2 font-bold text-gray-700"
           >
             Deskripsi Kegiatan
           </label>
@@ -130,14 +130,15 @@ const AdminKegiatanEdit = () => {
             name="description_kegiatan"
             value={formData.description_kegiatan}
             onChange={handleChange}
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            className="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+            rows={10}
             required
           />
         </div>
         <div className="mb-4">
           <label
             htmlFor="type_kegiatan"
-            className="block text-gray-700 font-bold mb-2"
+            className="block mb-2 font-bold text-gray-700"
           >
             Tipe Kegiatan
           </label>
@@ -146,7 +147,7 @@ const AdminKegiatanEdit = () => {
             name="type_kegiatan"
             value={formData.type_kegiatan}
             onChange={handleChange}
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            className="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
             required
           >
             <option value="">Pilih Tipe Kegiatan</option>
@@ -157,7 +158,7 @@ const AdminKegiatanEdit = () => {
         <div className="mb-4">
           <label
             htmlFor="contact_kegiatan"
-            className="block text-gray-700 font-bold mb-2"
+            className="block mb-2 font-bold text-gray-700"
           >
             Nomor Telepon
           </label>
@@ -167,14 +168,14 @@ const AdminKegiatanEdit = () => {
             name="contact_kegiatan"
             value={formData.contact_kegiatan}
             onChange={handleChange}
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            className="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
             required
           />
         </div>
         <div className="mb-4">
           <label
             htmlFor="date_kegiatan"
-            className="block text-gray-700 font-bold mb-2"
+            className="block mb-2 font-bold text-gray-700"
           >
             Tanggal Kegiatan
           </label>
@@ -184,14 +185,14 @@ const AdminKegiatanEdit = () => {
             name="date_kegiatan"
             value={formattedDate}
             onChange={handleChange}
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            className="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
             required
           />
         </div>
         <div className="flex items-center justify-between">
           <button
             type="submit"
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            className="px-4 py-2 font-bold text-white bg-[#004b23] rounded duration-200 hover:bg-[#176312] focus:outline-none focus:shadow-outline"
           >
             {id ? "Update Kegiatan" : "Tambah Kegiatan"}
           </button>
