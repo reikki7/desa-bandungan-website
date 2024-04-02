@@ -69,9 +69,9 @@ const AdminKegiatan = () => {
 
   return (
     <div className="admin-kegiatan">
-      <h2 className="text-2xl font-bold mb-4">Kegiatan</h2>
-      <div className="bg-white p-6 rounded-xl shadow-lg">
-        <div className="flex flex-col md:flex-row justify-between items-center mb-4">
+      <h2 className="mb-4 text-2xl font-bold">Kegiatan</h2>
+      <div className="p-6 bg-white shadow-lg rounded-xl">
+        <div className="flex flex-col items-center justify-between mb-4 md:flex-row">
           {/* Search box */}
           <input
             type="text"
@@ -84,7 +84,7 @@ const AdminKegiatan = () => {
           {/* Filter dropdown */}
           <div className="relative inline-flex">
             <svg
-              className="w-2 h-2 absolute top-0 right-0 m-4 pointer-events-none"
+              className="absolute top-0 right-0 w-2 h-2 m-4 pointer-events-none"
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 412 232"
             >
@@ -97,7 +97,7 @@ const AdminKegiatan = () => {
             <select
               value={filter}
               onChange={(e) => setFilter(e.target.value)}
-              className="border border-gray-300 rounded-full text-gray-600 h-10 pl-5 pr-10 bg-white hover:border-gray-400 focus:outline-none appearance-none"
+              className="h-10 pl-5 pr-10 text-gray-600 bg-white border border-gray-300 rounded-full appearance-none hover:border-gray-400 focus:outline-none"
             >
               <option value="Semua">Semua</option>
               <option value="Kegiatan Lalu">Kegiatan Lalu</option>
@@ -111,7 +111,7 @@ const AdminKegiatan = () => {
             <thead>
               <tr>
                 <th className="px-4 py-2 text-left">ID</th>
-                <th className="px-4 py-2 text-left">Judul</th>
+                <th className="px-4 py-2 text-left">Judul Kegiatan</th>
                 <th className="px-4 py-2 text-left">Tanggal Dibuat</th>
                 <th className="px-4 py-2 text-left">Kategori</th>
                 <th className="px-4 py-2 text-left">Tindakan</th>
@@ -121,7 +121,7 @@ const AdminKegiatan = () => {
               {kegiatanData.map((kegiatan) => (
                 <tr
                   key={kegiatan.id}
-                  className="border-b hover:bg-gray-100 transition-colors duration-200"
+                  className="transition-colors duration-200 border-b hover:bg-gray-100"
                 >
                   <td className="px-4 py-2 text-left">{kegiatan.id}</td>
                   <td className="px-4 py-2 text-left">
@@ -136,13 +136,13 @@ const AdminKegiatan = () => {
                   <td className="px-4 py-2 text-left">
                     <div className="flex items-center justify-center">
                       <button
-                        className="mr-2 text-blue-500 hover:text-blue-700 transition-colors duration-200"
+                        className="mr-2 text-blue-500 transition-colors duration-200 hover:text-blue-700"
                         onClick={() => handleAction(kegiatan.id, "edit")}
                       >
                         <AiOutlineEdit className="w-5 h-5" />
                       </button>
                       <button
-                        className="text-red-500 hover:text-red-700 transition-colors duration-200"
+                        className="text-red-500 transition-colors duration-200 hover:text-red-700"
                         onClick={() => handleAction(kegiatan.id, "delete")}
                       >
                         <AiOutlineDelete className="w-5 h-5" />

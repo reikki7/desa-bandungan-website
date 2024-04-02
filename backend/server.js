@@ -121,6 +121,20 @@ app.get("/umkm/:id", (req, res) => {
   });
 });
 
+// delete umkm
+app.delete("/umkm/:id", (req, res) => {
+  const umkmId = req.params.id;
+  const sql = "DELETE FROM umkms WHERE id = ?";
+  db.query(sql, [umkmId], (err, data) => {
+    if (err) {
+      console.error("Error executing query:", err);
+      res.status(500).json({ error: "An error occurred while deleting data" });
+      return;
+    }
+    res.json({ message: "UMKM deleted successfully" });
+  });
+});
+
 app.get("/", (req, res) => {
   return res.json("Hello");
 });
